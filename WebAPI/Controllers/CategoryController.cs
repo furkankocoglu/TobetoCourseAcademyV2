@@ -16,7 +16,7 @@ namespace WebAPI.Controllers
             _categoryService = categoryService;
         }        
         [HttpPost]
-        public async Task<IActionResult> Add([FromBody]Category category)//FromBody nedir?
+        public async Task<IActionResult> Add(Category category)//[FromBody] sayesinde veri sadece isteğin body kısmından alınıyor.Olmasaydı urlden de alınabiliyor.
         {
             await _categoryService.Add(category);
             return Ok();
