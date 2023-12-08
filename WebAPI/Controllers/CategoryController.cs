@@ -1,6 +1,5 @@
 ﻿using Business.Abstracts;
-using Entities.Concretes;
-using Microsoft.AspNetCore.Http;
+using Business.Dtos.Requests;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WebAPI.Controllers
@@ -16,10 +15,11 @@ namespace WebAPI.Controllers
             _categoryService = categoryService;
         }        
         [HttpPost]
-        public async Task<IActionResult> Add(Category category)//[FromBody] sayesinde veri sadece isteğin body kısmından alınıyor.Olmasaydı urlden de alınabiliyor.
+		//[FromBody] sayesinde veri sadece isteğin body kısmından alınıyor.Olmasaydı urlden de alınabiliyor.
+		public async Task<IActionResult> Add(CreateCategoryRequest createCategoryRequest)
         {
-            await _categoryService.Add(category);
-            return Ok();
+            var result = await _categoryService.Add(createCategoryRequest);
+            return Ok(result);
             
         }
 

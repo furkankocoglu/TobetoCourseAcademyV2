@@ -1,6 +1,5 @@
 ﻿using Business.Abstracts;
-using Entities.Concretes;
-using Microsoft.AspNetCore.Http;
+using Business.Dtos.Requests;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WebAPI.Controllers
@@ -16,10 +15,10 @@ namespace WebAPI.Controllers
 			_courseService = courseService;
 		}
 		[HttpPost]
-		public async Task<IActionResult> Add([FromBody]Course course)
+		public async Task<IActionResult> Add([FromBody]CreateCourseRequest createCourseRequest)
 		{
-			await _courseService.Add(course);
-			return Ok();
+			var result = await _courseService.Add(createCourseRequest);
+			return Ok(result);
 		}
 		[HttpGet]
 		public async Task<IActionResult> GetList()
