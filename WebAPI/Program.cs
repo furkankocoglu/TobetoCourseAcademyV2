@@ -1,5 +1,5 @@
 using Business;
-using Business.Maps.AutoMapper;
+using Business.Profiles;
 using DataAccess;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -7,7 +7,6 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddDataAccessServices(builder.Configuration);
 builder.Services.AddBusinessServices();
-builder.Services.AddAutoMapper(typeof(CategoryProfile), typeof(CourseProfile), typeof(InstructorProfile));
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

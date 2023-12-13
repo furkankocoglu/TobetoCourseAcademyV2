@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Business.Dtos.Responses
 {
-	public class GetListedCategoryResponse
+	public class GetListCategoryResponse
 	{
 		public Guid Id { get; set; }
 		public string Name { get; set; }

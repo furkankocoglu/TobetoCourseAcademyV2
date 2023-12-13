@@ -16,8 +16,8 @@ namespace Entities.Concretes
         public decimal Price { get; set; }
         public string ImageUrl { get; set; }
 
-        public Category? Category { get; set; }
-        public Instructor? Instructor { get; set; }
+        public Category Category { get; set; }
+        public Instructor Instructor { get; set; }
 
     }
 }

@@ -1,7 +1,8 @@
 ﻿namespace Business.Dtos.Requests
 {
-	public class CreateInstructorRequest
+	public class DeleteInstructorRequest
 	{
+		public Guid Id { get; set; }
 		public string Name { get; set; }
 	}
 }

@@ -4,10 +4,12 @@ using Business.Dtos.Requests;
 using Business.Dtos.Responses;
 using Core.DataAccess.Paging;
 using DataAccess.Abstracts;
+using DataAccess.Concretes;
 using Entities.Concretes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -29,11 +31,35 @@ namespace Business.Concretes
 			CreatedInstructorResponse createdInstructorResponse = _mapper.Map<CreatedInstructorResponse>(createdInstructor);
 			return createdInstructorResponse;
 		}
-		public async Task<Paginate<GetListedInstructorResponse>> GetListAsync()
+
+		public async Task<DeletedInstructorResponse> Delete(DeleteInstructorRequest deleteInstructorRequest)
+		{
+			Instructor instructor = await _instructorDal.GetAsync(c => c.Id == deleteInstructorRequest.Id);
+			var deletedInstructor = await _instructorDal.DeleteAsync(instructor);
+			DeletedInstructorResponse deletedInstructorResponse = _mapper.Map<DeletedInstructorResponse>(deletedInstructor);
+			return deletedInstructorResponse;
+		}
+
+		public async Task<GetInstructorResponse> GetAsync(Expression<Func<Instructor, bool>> filter)
+		{
+			var result = await _instructorDal.GetAsync(filter);
+			GetInstructorResponse getInstructorResponse = _mapper.Map<GetInstructorResponse>(result);
+			return getInstructorResponse;
+		}
+
+		public async Task<Paginate<GetListInstructorResponse>> GetListAsync()
 		{
 			var result = await _instructorDal.GetListAsync();
-			Paginate<GetListedInstructorResponse> getListedInstructorResponse = _mapper.Map<Paginate<GetListedInstructorResponse>>(result);
+			Paginate<GetListInstructorResponse> getListedInstructorResponse = _mapper.Map<Paginate<GetListInstructorResponse>>(result);
 			return getListedInstructorResponse;
+		}
+
+		public async Task<UpdatedInstructorResponse> Update(UpdateInstructorRequest updateInstructorRequest)
+		{
+			Instructor instructor = _mapper.Map<Instructor>(updateInstructorRequest);
+			var updatedInstructor = await _instructorDal.UpdateAsync(instructor);
+			UpdatedInstructorResponse updatedInstructorResponse = _mapper.Map<UpdatedInstructorResponse>(updatedInstructor);
+			return updatedInstructorResponse;
 		}
 	}
 }

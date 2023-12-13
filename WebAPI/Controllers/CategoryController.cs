@@ -1,6 +1,8 @@
 ﻿using Business.Abstracts;
 using Business.Dtos.Requests;
+using Entities.Concretes;
 using Microsoft.AspNetCore.Mvc;
+using System.Linq.Expressions;
 
 namespace WebAPI.Controllers
 {
@@ -13,22 +15,39 @@ namespace WebAPI.Controllers
         public CategoryController(ICategoryService categoryService)
         {
             _categoryService = categoryService;
-        }        
-        [HttpPost]
-		//[FromBody] sayesinde veri sadece isteğin body kısmından alınıyor.Olmasaydı urlden de alınabiliyor.
-		public async Task<IActionResult> Add(CreateCategoryRequest createCategoryRequest)
-        {
-            var result = await _categoryService.Add(createCategoryRequest);
-            return Ok(result);
-            
         }
+		[HttpPost("Add")]
+		public async Task<IActionResult> Add([FromBody] CreateCategoryRequest category)
+		{
+			var result = await _categoryService.Add(category);
+			return Ok(result);
+		}
+		[HttpGet("GetAll")]
+		public async Task<IActionResult> GetList()
+		{			
+			var result = await _categoryService.GetListAsync();
+			return Ok(result);
+		}
 
-        [HttpGet]
-        public async Task<IActionResult> GetList()
-        {
-            var result = await _categoryService.GetListAsync();
-            return Ok(result);
+		[HttpPut("Update")]
+		public async Task<IActionResult> Update([FromBody] UpdateCategoryRequest category)
+		{
+			var result = await _categoryService.Update(category);
+			return Ok(result);
+		}
 
-        }
-    }
+		[HttpDelete("Delete")]
+		public async Task<IActionResult> Delete([FromBody] DeleteCategoryRequest category)
+		{
+			var result = await _categoryService.Delete(category);
+			return Ok(result);
+		}
+
+		[HttpGet("GetById")]
+		public async Task<IActionResult> GetById(Guid id)
+		{
+			var result = await _categoryService.GetAsync(c => c.Id == id);
+			return Ok(result);
+		}
+	}
 }

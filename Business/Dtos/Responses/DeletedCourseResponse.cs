@@ -1,7 +1,8 @@
-﻿namespace Business.Dtos.Requests
+﻿namespace Business.Dtos.Responses
 {
-	public class CreateCourseRequest
+	public class DeletedCourseResponse
 	{
+		public Guid Id { get; set; }
 		public Guid CategoryId { get; set; }
 		public Guid InstructorId { get; set; }
 		public string Name { get; set; }

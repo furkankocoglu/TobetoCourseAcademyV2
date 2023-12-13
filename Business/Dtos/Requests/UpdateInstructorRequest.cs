@@ -1,6 +1,6 @@
-﻿namespace Business.Dtos.Responses
+﻿namespace Business.Dtos.Requests
 {
-	public class CreatedCategoryResponse
+	public class UpdateInstructorRequest
 	{
         public Guid Id { get; set; }
         public string Name { get; set; }
